@@ -12,6 +12,17 @@ export const AddAppointment = ({onAddAppointment})=>{
     }
     let [toggleForm, setToggleForm] = useState(false);
     let [formData, setFormData] = useState(clearData);
+    function createAppointment(){
+        const aptInfo = {
+            ownerName:formData.ownerName,
+            petName:formData.petName,
+            aptDate:formData.aptDate+' '+formData.aptTime,
+            aptNotes:formData.aptNotes
+        }
+        setFormData(clearData);
+        onAddAppointment(aptInfo);
+        setToggleForm(!toggleForm);
+    }
     return (    <div>
         <button  onClick={()=>setToggleForm(!toggleForm)}
                  className={`bg-blue-400 text-white px-2 py-3 w-full text-left ${toggleForm ? 'rounded-t-md':'rounded-md'}`}>
@@ -78,7 +89,7 @@ export const AddAppointment = ({onAddAppointment})=>{
 
                 <div className="pt-5">
                     <div className="flex justify-end">
-                        <button  onClick={()=>onAddAppointment(formData)}
+                        <button  onClick={createAppointment}
                             type="submit" className="ml-3 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-400 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-400">
                             Submit
                         </button>
